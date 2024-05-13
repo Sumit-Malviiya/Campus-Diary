@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Diaries</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/search.css">
+</head>
+
+<body>
+    <div class="container home">
+        <div class="nav-head">
+            <nav class="navbar">
+                <h4 class="logo">Campus Diaries</h4>
+            </nav>
+            <form action="" class="search-space">
+                <input type="search" name="" id="searchUser">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </form>
+        </div>
+
+        <div class="sidebar">
+            <div class="icon" id="home"><a href="/home"><i class="fa-solid fa-house"></i><span>Feed</span></a></div>
+            <div class="icon" id="search"><a href="/search"><i
+                        class="fa-solid fa-magnifying-glass"></i><span>Search</span></a></div>
+            <div class="icon" id="notification"><a href="/notification"><i
+                        class="fa-solid fa-bell"></i><Span>Notification</Span></a></div>
+            <div class="icon" id="profile"><a href="/profile"><i class="fa-solid fa-user"></i>Profile</a></div>
+        </div>
+
+
+        <div class="userInfo fsg">
+
+        </div>
+
+        <div class="explore">
+            <% posts.forEach(function(elem){ %>
+                <div class="item">
+                    <img src="/images/uploads/<%= elem.image %>" alt="">
+                </div>
+                <% })%>
+        </div>
+
+    </div>
+
+
+    <div class="gap">
+
+    </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"
+        integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://kit.fontawesome.com/6e372c982e.js" crossorigin="anonymous"></script>
+    <script>
+        const searchUser = document.querySelector('#searchUser');
+        const userInfo = document.querySelector('.userInfo');
+
+        let clutter = "";
+        searchUser.addEventListener("click", () => {
+            var item = document.querySelector('.item');
+            item.parentNode.removeChild(item);
+            userInfo.classList.remove('fsg')
+        })
+
+        searchUser.addEventListener('input', () => {
+            axios.get(`/username/${searchUser.value}`)
+                .then(function (data) {
+                    clutter = '';
+                    data.data.forEach(function (elem) {
+                        clutter = `
+            <div class="containt">
+                <img src="/images/uploads/${elem.profileimage}" alt="">
+                <div class="user">
+                    <h4>${elem.username}</h4>
+                    <h6>@${elem.username}</h6>
+                </div>
+            </div>`;
+
+                    })
+                    userInfo.innerHTML = clutter;
+                })
+        })
+    </script>
+</body>
+
+</html>

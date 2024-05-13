@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Baloo+Da+2:wght@400..800&family=Englebert&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0%;
+
+}
+
+body {
+    background-color: #dadddf;
+    width: 100%;
+    overflow: auto;
+    height: 100vh;
+}
+
+.nav-head {
+    position: fixed;
+    top: 0%;
+    background-color: #fff;
+    width: 100%;
+}
+
+.navbar {
+    height: 7vmin;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #6d597a;
+    color: #fff;
+    box-shadow: 0 0px 1px 0 rgba(0, 0, 0, 0.2), 0 0px 8px 0 rgba(0, 0, 0, 0.19);
+}
+
+.home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.sidebar {
+    width: 23.4vw;
+    position: absolute;
+    top: 56px;
+    left: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    position: fixed;
+}
+
+.icon {
+    border: .6px solid #adadad;
+    width: 100%;
+    padding: 15px 0px 15px 0px;
+    /* padding-left: 30px; */
+    position: relative;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    background-color: #fff;
+    font-weight: 600;
+    font-family: "Josefin Sans", sans-serif;
+    font-optical-sizing: auto;
+}
+
+.icon a i {
+    font-size: 29px;
+    text-decoration: none;
+    margin-right: 7px;
+}
+
+.icon a {
+    text-decoration: none;
+    font-size: 20px;
+    color:#000  ;
+    margin-left: 30px;
+}
+
+
+#home a {
+    color: #355070;
+
+}
+
+#home {
+    border-right: 7px solid #355070;
+}
+
+
+.home1 {
+    margin-top: 6.7vmin;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 30%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.navbar .logo {
+    font-family: 'Caveat', cursive;
+    font-size: 1.6rem;
+}
+
+.posts {
+    margin-top: 8px;
+    background-color: #fff;
+    border: .7px solid rgb(195, 195, 195);
+    width: 75vmin;
+    border-radius: 7px;
+    padding: 0%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.post-creator {
+    display: flex;
+    padding: 10px;
+}
+
+.profile-icon img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+.create-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.creator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.creator :first-child {
+    padding-left: 12px;
+    font-size: 1rem;
+    font-family: "Baloo Da 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.creator :last-child {
+    padding-left: 12px;
+    font-size: .9rem;
+}
+
+.post-info {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    font-size: .8rem;
+    font-weight: 100;
+    color: #757575;
+    gap: 4px;
+    padding: 3px 0px 0px 12px;
+}
+
+.post-info i {
+    font-size: 1rem;
+}
+
+.post-item {
+    max-height: 80vmin;
+    object-fit: cover;
+}
+
+.post-item .caption {
+    padding: 5px 10px 5px 10px;
+    border-top: 1px solid #adadad;
+}
+
+.post-img,
+.post-img img {
+    max-height: 60vmin;
+    min-width: 60vmin;
+    object-fit: contain;
+    overflow: hidden;
+}
+
+.like-comment-share {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #fff;
+    max-height: 20px;
+    padding: 7px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+
+.gap {
+    width: 60vmin;
+    height: 7.8vmin;
+}
+
+.caption p {
+    width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Diaries</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/home.css">
+</head>
+
+<body>
+    <div class="home">
+        <div class="nav-head">
+            <nav class="navbar">
+                <h4 class="logo">Campus Diaries</h4>
+            </nav>
+        </div>
+
+        <div class="sidebar">
+            <div class="icon" id="home"><a href="/home"><i class="fa-solid fa-house"></i><span>Feed</span></a></div>
+            <div class="icon" id="search"><a href="/search"><i class="fa-solid fa-magnifying-glass"></i><span>Search</span></a></div>
+            <div class="icon" id="notification"><a href="/notification"><i class="fa-solid fa-bell"></i><Span>Notification</Span></a></div>
+            <div class="icon" id="profile"><a href="/profile"><i class="fa-solid fa-user"></i>Profile</a></div>
+        </div>
+
+        <div class="home1">
+            <% posts.reverse().forEach(function(elem){ %>
+                <div class="posts">
+                    <div class="post">
+                        <div class="post-creator">
+                            <div class="profile-icon">
+                                <img src="/images/uploads/<%= elem.user.profileimage %>" alt="">
+                            </div>
+                            <div class="create-info">
+                                <div class="creator">
+                                    <h6>
+                                        <%= elem.user.username %>
+                                    </h6>
+                                    <a href="#">Follows</a>
+                                </div>
+                                <div class="post-info">
+                                    <span>
+                                        <%= elem.createdAt %>
+                                    </span>
+                                    <i class="material-icons">&#xe80b;</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-item">
+                            <div class="caption">
+                                <p>
+                                    <%= elem.text %>
+                                </p>
+                            </div>
+                            <div class="post-img">
+                                <img src="/images/uploads/<%= elem.image %>" alt="">
+                            </div>
+                            <div class="like-comment-share">
+                                <div class="like"><i class="fa-regular fa-thumbs-up"></i><span class="likeCount"
+                                        style="font-size: smaller;color: rgb(128, 128, 128);margin-left: 2px;">
+                                        <%= elem.likes.length %>
+                                    </span></div>
+                                <div class="comment"><i style='font-size:20px' class='far'>&#xf075;</i></div>
+                                <div class="share"><i style='font-size:20px' class='fas'>&#xf14d;</i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% })%>
+        </div>
+
+
+
+
+        <div class="gap">
+
+        </div>
+
+        <div class="footer">
+
+
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/6e372c982e.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

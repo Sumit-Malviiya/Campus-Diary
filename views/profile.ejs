@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Diaries</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="/stylesheets/profile.css">
+</head>
+
+<body>
+    <div class="nav-head">
+        <nav class="navbar">
+            <h4 class="logo">Campus Diaries</h4>
+        </nav>
+    </div>
+    
+
+    <div class="container home">
+        <div class="sidebar">
+            <div class="icon" id="home"><a href="/home"><i class="fa-solid fa-house"></i><span>Feed</span></a></div>
+            <div class="icon" id="search"><a href="/search"><i class="fa-solid fa-magnifying-glass"></i><span>Search</span></a></div>
+            <div class="icon" id="notification"><a href="/notification"><i class="fa-solid fa-bell"></i><Span>Notification</Span></a></div>
+            <div class="icon" id="profile"><a href="/profile"><i class="fa-solid fa-user"></i>Profile</a></div>
+        </div>
+        <div class="sub-container home1">
+            <div class="topbar">
+                <div>
+                    <%= user.username %>
+                </div>
+                <i id="create-icon" class="ph-bold ph-plus-circle"></i>
+            </div>
+            <form action="/uploadForm" method="post" hidden id="uploadForm" enctype="multipart/form-data">
+                <input type="file" name="file">
+            </form>
+            <div class="image-area">
+                <div class="pencil-icon"><i class="ph ph-pencil"></i></div>
+                <!-- <img src="/images/uploads/<%= user.profileimage %>" alt=""> -->
+                <img src="/images/uploads/<%=user.profileimage%>" alt="">
+
+            </div>
+            <div class="bio">
+                <h5>Bio</h5>
+                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus impedit ipsum consequatur.
+                    Fugit
+                    magnam accusamus assumenda, saepe inventore recusandae. Autem.</span>
+            </div>
+
+            <div class="edit-profile">
+                <button class="button-29" role="button">Edit Profile</button>
+            </div>
+
+            <div class="section">
+                <button><i class="fa-solid fa-signs-post"></i></button>
+                <button><i class="ph-bold ph-pencil-simple-line"></i></button>
+            </div>
+        </div>
+        <div class="feeds">
+            <% user.posts.reverse().forEach(function(post){ %>
+                <div class="feed">
+                    <img  src="/images/uploads/<%= post.image %>" alt="">
+                </div>
+                <%})%>
+                
+        </div>
+    </div>
+
+    <div class="create-post hidden1">
+        <div class="box">
+            <div class="toppost">
+                <span>Create Post</span>
+                <span class="window-close"><i class="ph ph-sign-in"></i></span>
+                <span>Create Artical <span class="arrow">&RightArrow;</span></span>
+            </div>
+            <form action="/uploadPost" id="" method="post" enctype="multipart/form-data">
+                <div class="file-space">
+                    <!-- Upload Area -->
+                    <div id="uploadArea" class="upload-area">
+                        <!-- Header -->
+                        <div class="upload-area__header">
+                            <!-- <h1 class="upload-area__title"></h1> -->
+                            <p class="upload-area__paragraph">
+                                File should be an image
+                                <strong class="upload-area__tooltip">
+                                    Like
+                                    <span class="upload-area__tooltip-data"></span> <!-- Data Will be Comes From Js -->
+                                </strong>
+                            </p>
+                        </div>
+                        <!-- End Header -->
+
+                        <!-- Drop Zoon -->
+                        <div id="dropZoon" class="upload-area__drop-zoon drop-zoon">
+                            <span class="drop-zoon__icon">
+                                <i class='bx bxs-file-image'></i>
+                            </span>
+                            <p class="drop-zoon__paragraph">Drop your file here or Click to browse</p>
+                            <span id="loadingText" class="drop-zoon__loading-text">Please Wait</span>
+                            <img src="" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image"
+                                draggable="false">
+                            <input type="file" name="file" id="fileInput" class="drop-zoon__file-input">
+                        </div>
+                        <!-- End Drop Zoon -->
+
+                        <!-- File Details -->
+                        <div id="fileDetails" class="upload-area__file-details file-details">
+                            <h3 class="file-details__title">Uploaded File</h3>
+
+                            <div id="uploadedFile" class="uploaded-file">
+                                <div class="uploaded-file__icon-container">
+                                    <i class='bx bxs-file-blank uploaded-file__icon'></i>
+                                    <span class="uploaded-file__icon-text"></span> <!-- Data Will be Comes From Js -->
+                                </div>
+
+                                <div id="uploadedFileInfo" class="uploaded-file__info">
+                                    <span class="uploaded-file__name">Proejct 1</span>
+                                    <span class="uploaded-file__counter">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End File Details -->
+                    </div>
+                    <!-- End Upload Area -->
+                </div>
+                <div class="caption">
+                    <textarea name="caption" placeholder="Caption" id="caption-area" maxlength=""
+                        minlength=""></textarea>
+                    <button class="Done-btn" type="submit">Done <i id="" class="ph ph-export"></i></button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="gap">
+
+    </div>
+
+    <!-- setting menu -->
+    <div class="setting">
+        <nav>
+            <div class="navbarr">
+                <div class="containerr nav-container">
+                    <input class="checkbox" type="checkbox" name="" id="" />
+                    <div class="hamburger-lines">
+                        <span class="line line1"></span>
+                        <span class="line line2"></span>
+                        <span class="line line3"></span>
+                    </div>
+
+                    <div class="menu-items hide">
+                        <li><a href="/logout">log Out</a></li>
+                        <!-- <li><a href="#">about</a></li>
+                  <li><a href="#">blogs</a></li>
+                  <li><a href="#">portfolio</a></li>
+                  <li><a href="#">contact</a></li> -->
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+    <script src="https://kit.fontawesome.com/6e372c982e.js" crossorigin="anonymous"></script>
+    <script>
+        const menu = document.querySelector('.menu-items');
+
+        menu.addEventListener('click', () => {
+            menu.classList.remove('hide')
+        })
+
+
+
+    </script>
+    <script src="/javascripts/profile.js"></script>
+</body>
+
+</html>
