@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/message.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&display=swap"
+      rel="stylesheet"
+    />
+    <title>Campus Diary-Messanger</title>
+  </head>
+
+  <body>
+    <div class="home">
+      <div class="nav-head">
+        <nav class="navbar">
+          <h4 class="logo">Campus Diaries</h4>
+        </nav>
+      </div>
+
+      <div class="sidebar">
+        <div class="icon" id="home">
+          <a href="/home"><i class="fa-solid fa-house"></i><span>Feed</span></a>
+        </div>
+        <div class="icon" id="search">
+          <a href="/search"
+            ><i class="fa-solid fa-magnifying-glass"></i><span>Search</span></a
+          >
+        </div>
+        <div class="icon" id="notification">
+          <a href="/notification"
+            ><i class="fa-solid fa-bell"></i><Span>Notification</Span></a
+          >
+        </div>
+        <div class="icon" id="profile">
+          <a href="/profile"><i class="fa-solid fa-user"></i>Profile</a>
+        </div>
+        <div class="profinfo">
+          <img src="" alt="" />
+        </div>
+      </div>
+
+      <div class="container-main">
+        <div class="subcont">
+          <div class="chat-area hider">
+            <!-- <div class="current-user">
+              <img src="/images/team-3.jpg" alt="" />
+              <h3 id="chatUser">Sumit Malviya</h3>
+            </div> -->
+            <div class="chat-in">
+              <div class="status">
+                <p><b>Sumit</b> joined</p>
+              </div>
+              
+              <div class="outgoing-msg"><p class="name">You</p>rudra tu kesa he</div>
+            </div>
+
+            <form action="" class="textarea">
+              <input
+                type="text"
+                name="message"
+                placeholder="Write a Message..."
+                id="message"
+              />
+              <input type="submit" name="submit" id="" /><span
+                ><i
+                  class="fa fa-send-o"
+                  style="
+                    font-size: 30px;
+                    color: black;
+                    margin-left: 8px;
+                    cursor: pointer;
+                  "
+                ></i
+              ></span>
+            </form>
+          </div>
+
+          <div class="indicate_to_chat">
+            <p><i>Click to Start Chat with SomeOne👉 </i></p>
+          </div>
+
+          <!-- <div class="userI">
+            <h3><%= user.username %></h3>
+            <p>Status</p>
+          </div> -->
+          <div class="users-box">
+            <% userall.forEach(function(elem){ %>
+            <div class="userI" data-id="<%= elem._id %>">
+              <h3 id="userNaam"><%= elem.username %></h3>
+              <p>Status</p>
+            </div>
+            <% })%>
+          </div>
+        </div>
+      </div>
+
+      <div class="gap"></div>
+
+      <div class="footer"></div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var senderID = "<%= user._id %>";
+      var receiverID;
+      let userKaNaam;
+
+      const socket = io("/user-namespace", {
+        auth: {
+          token: "<%= user._id %>",
+        },
+      });
+
+      let chatUser = document.querySelector("#chatUser");
+      let chat_area = document.querySelector(".chat-area");
+      let users_box = document.querySelector(".users-box");
+      let userI = document.querySelector(".userI");
+      let chatIn = document.querySelector('.chat-in');
+      // userI.addEventListener('click',()=>{
+      //   console.log(userI)
+      //   let userID = userI.dataset.id;
+      //   receiver_id=userID;
+      //   console.log(receiver_id);
+      //   chat_area.classList.remove('hider');
+      //   document.querySelector('.indicate_to_chat').style.display='none';
+      // })
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const userElements = document.querySelectorAll(".userI");
+
+        userElements.forEach((userElement) => {
+          userElement.addEventListener("click", () => {
+            userKaNaam = userElement.querySelector("#userNaam").innerText; // Replace with actual username
+// This will log the clicked element
+            const userId = userElement.getAttribute("data-id");
+            receiverID = userId;
+            chat_area.classList.remove("hider");
+            document.querySelector(".indicate_to_chat").style.display = "none";
+
+            socket.emit('onlyChat',{senderID,receiverID},
+              console.log('exist chats sent')
+            )
+          });
+        });
+      });
+      const currUser = `<%= user.username %>`;
+
+      socket.emit("user-joined", currUser);
+
+      socket.on("user-connected", (socket_name) => {
+        userJoinLeft(socket_name, "joined");
+      });
+
+      function userJoinLeft(name, status) {
+        let div = document.createElement("div");
+        div.classList.add("current-user");
+        let content = `
+              <h3 id="chatUser">${name}</h3>`;
+        div.innerHTML = content;
+        chat_area.prepend(div);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document
+          .querySelector(".textarea")
+          .addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            var messageHai = document.querySelector("#message").value;
+
+            console.log("Message:", messageHai, "usernaam", userKaNaam); // Log the message
+
+            const response = await fetch("/saveChat", {
+              method: "post",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                sender_id: senderID,
+                receiver_id: receiverID,
+                message: messageHai,
+              }),
+            });
+            const result = await response.json();
+            console.log(result.msg);
+            // console.log(html=`<div class="outgoing-msg">${messageHai}</div>`)
+            const div = document.createElement('div');
+            const p = document.createElement('p');
+            p.classList.add('name');
+            p.innerHTML = 'you';
+            div.classList.add('outgoing-msg')
+            div.prepend(p);
+            div.innerHTML = `${messageHai}`
+            chatIn.append(div);
+
+            socket.emit('newChat',messageHai);
+          });
+      });
+
+      socket.on('loadNewChat',function(data){
+        
+        console.log(data)
+          const div = document.createElement('div');
+              div.classList.add('incoming-msg')
+              div.innerHTML = `${data}`
+              chatIn.append(div);
+
+      })
+
+
+      //chat loader
+      socket.on('loadChat',function(data){
+        chat_area.html = '';
+        var chatt = data.chatt;
+        for(let i=0;i<chatt.length; i++){
+          let addClass = '';
+          if(chatt[i]['sender_id'] === senderID){
+            addClass = 'outgoing-msg';
+          }
+          else{
+            addClass = 'incoming-msg';
+          }
+          const div = document.createElement('div');
+            div.classList.add(addClass)
+            div.innerHTML = `${chatt[i]['message']}`
+            chatIn.append(div);
+            addClass = '';
+            chat_area.prepend(chatIn)
+            console.log(div)
+        };
+      })
+    </script>
+    <script
+      src="https://kit.fontawesome.com/6e372c982e.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

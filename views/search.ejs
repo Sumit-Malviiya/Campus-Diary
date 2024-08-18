@@ -37,7 +37,7 @@
 
         <div class="explore">
             <% posts.forEach(function(elem){ %>
-                <div class="item">
+                <div class="item" data-id="<%= elem._id %>">
                     <img src="/images/uploads/<%= elem.image %>" alt="">
                 </div>
                 <% })%>
@@ -45,6 +45,48 @@
 
     </div>
 
+
+    <div class="viewPost posts">
+        <div class="post">
+            <div class="post-creator">
+                <div class="profile-icon">
+                    <img src="/images/uploads/>" alt="">
+                </div>
+                <div class="create-info">
+                    <div class="creator">
+                        <h6>
+                            <%= posts.user.username %>
+                        </h6>
+                        <a href="#">Follows</a>
+                    </div>
+                    <div class="post-info">
+                        <span>
+                            <%= posts.createdAt %>
+                        </span>
+                        <i class="material-icons">&#xe80b;</i>
+                    </div>
+                </div>
+            </div>
+            <div class="post-item">
+                <div class="caption">
+                    <p>
+                        <%= posts.text %>
+                    </p>
+                </div>
+                <div class="post-img">
+                    <img src="/images/uploads/<%= posts.image %>" alt="">
+                </div>
+                <div class="like-comment-share">
+                    <div class="like"><i class="fa-regular fa-thumbs-up"></i><span class="likeCount"
+                            style="font-size: smaller;color: rgb(128, 128, 128);margin-left: 2px;">
+                            <%= posts.likes.length %>
+                        </span></div>
+                    <div class="comment"><i style='font-size:20px' class='far'>&#xf075;</i></div>
+                    <div class="share"><i style='font-size:20px' class='fas'>&#xf14d;</i></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="gap">
 
@@ -65,6 +107,7 @@
             userInfo.classList.remove('fsg')
         })
 
+        let userKaNaam = '';
         searchUser.addEventListener('input', () => {
             axios.get(`/username/${searchUser.value}`)
                 .then(function (data) {
@@ -78,11 +121,35 @@
                     <h6>@${elem.username}</h6>
                 </div>
             </div>`;
-
                     })
                     userInfo.innerHTML = clutter;
                 })
         })
+
+        userInfo.addEventListener('click',async function(){
+            const response = await fetch("/userProfile", {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                }),
+            });
+            window.location.href = '/userProfile';
+        })
+
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            const postItem = document.querySelectorAll('.item');
+        const userElements = document.querySelectorAll(".userI");
+
+        postItem.forEach((postItem) => {
+          postItem.addEventListener("click", () => {
+            const postID = postItem.getAttribute("data-id");
+            console.log(postID)
+          });
+        });
+      });
     </script>
 </body>
 

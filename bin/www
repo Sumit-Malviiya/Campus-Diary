@@ -7,6 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('dailyauro:server');
 var http = require('http');
+var socketIo = require('socket.io');
+var chats = require('../routes/chat')
 
 /**
  * Get port from environment and store in Express.
@@ -20,6 +22,12 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var io = socketIo(server, {
+  cors: {
+    origin: "*", // Allow all origins
+    methods: ["GET", "POST"]
+  }
+}); // Attach Socket.io to the server
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -28,6 +36,51 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+
+/**
+ * Socket.io connection handler
+ */
+
+var usp = io.of('/user-namespace');
+
+usp.on('connection', (socket) => {
+  console.log('A user connected');
+  console.log(socket.handshake.auth.token);
+  socket.emit('message','Welcome to the Campus Diary Era!');
+  socket.broadcast.emit('message', 'A User has Joined the Chat');
+
+  let user = {};
+
+  socket.on('user-joined',(currUser) => {
+    user[socket.id]= currUser;
+    socket.broadcast.emit('user-connected',currUser);
+    console.log(currUser)
+  })
+
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
+    socket.emit('message','A user has left the chat!');
+  });
+
+  //Chatting implementation
+  socket.on('newChat',function(data){
+    console.log(data)
+    socket.broadcast.emit('loadNewChat',data)
+  })
+
+  //Loading old Chats here
+  socket.on('onlyChat',async function(data){
+    console.log('inside the exist chat')
+   var chatt = await chats.find({ $or:[
+      {sender_id:data.senderID, reciever_id:data.recieverID},
+      {sender_id:data.recieverID, reciever_id:data.senderID}
+    ]})
+
+    socket.emit('loadChat',{chatt : chatt})
+  })
+});
+
 
 /**
  * Normalize a port into a number, string, or false.

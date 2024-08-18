@@ -1,0 +1,289 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Baloo+Da+2:wght@400..800&family=Englebert&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0%;
+}
+
+body {
+  background-color: #dadddf;
+  width: 100%;
+  overflow: auto;
+  height: 100vh;
+}
+
+.nav-head {
+  position: fixed;
+  top: 0%;
+  background-color: #fff;
+  width: 100%;
+}
+
+.navbar {
+  height: 7vmin;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #6d597a;
+  color: #fff;
+  box-shadow: 0 0px 1px 0 rgba(0, 0, 0, 0.2), 0 0px 8px 0 rgba(0, 0, 0, 0.19);
+  font-family: "Caveat", cursive;
+}
+
+.home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.sidebar {
+  width: 21.4vw;
+  position: absolute;
+  top: 56px;
+  left: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  height: 80vh;
+  position: fixed;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.icon {
+  width: 95%;
+  padding: 15px 0px 15px 0px;
+  /* padding-left: 30px; */
+  position: relative;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  background-color: #fff;
+  font-weight: 600;
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+}
+.icon:hover {
+  background-color: #dadddf;
+}
+
+.icon a i {
+  font-size: 29px;
+  text-decoration: none;
+  margin-right: 7px;
+}
+
+.icon a {
+  text-decoration: none;
+  font-size: 20px;
+  color: #000;
+  margin-left: 30px;
+}
+
+#home a {
+  color: #355070;
+}
+
+#home {
+  border-left: 7px solid #355070;
+  background-color: #dadddf;
+}
+
+.home1 {
+  margin-top: 6.7vmin;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-left: 30%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.navbar .logo {
+  font-family: "Caveat", cursive;
+  font-size: 1.6rem;
+}
+
+/* .gap {
+    width: 60vmin;
+    height: 7.8vmin;
+} */
+
+.caption p {
+  width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.container-main {
+  /* background-color: #1e1e1e; */
+  width: 100%;
+  height: 90vh;
+}
+
+.subcont {
+  /* border: #355070 2px solid; */
+  margin-left: 46vh;
+  margin-top: 56px;
+  width: 77.8%;
+  height: 80vh;
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+}
+
+.current-user{
+  width: 52%;
+  height: 5vh;
+  border-bottom: #dadddf 1.3px solid ;
+  border-radius: 10px;
+  display: flex;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  align-items: center;
+  position: fixed;
+  background:#082a2d ;
+}
+
+.current-user img{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin:0px 7px 0px 12px;
+}
+.chat-area {
+  color:#fff;
+  width: 70%;
+  background-color: #082a2d;
+  border-radius: 10px;
+  padding: 2px 15px 10px;
+  position: relative;
+}
+
+.chat-in{
+width:auto;
+height: 70vh;
+margin-top: 32px;
+display: flex;
+flex-direction: column;
+overflow-y: auto;
+}
+
+.chat-in::-webkit-scrollbar{
+  width:0px;
+} 
+.incoming-msg {
+  background-color: #efe9d8;
+  color: #000;
+  min-width: auto;
+  max-width: 50%;
+  max-height: 50%;
+  padding:4px 3px 4px 3px;
+  border-radius: 13px 15px 0px 15px;
+  font-weight: 500;
+  font-family: "Playwrite DE Grund", cursive;
+  font-size: 15px;
+  float: left;
+  margin-top: 10px;
+}
+
+.outgoing-msg {
+    background-color: #fff;
+    color: #000;
+    max-width: 50%;
+    max-height: 50%;
+    padding:4px 3px 4px 3px;
+    border-radius: 13px 15px 0px 15px;
+    font-weight: 500;
+    font-family: "Playwrite DE Grund", cursive;
+    font-size: 13px;
+    margin-left: auto;
+    margin-top: 10px;
+    display: block;
+  }
+
+  .textarea{
+   width: 100%;
+   background-color: #d1d1d1;
+   height: 6vh;
+   border-radius: 12px;
+   display: flex;
+   align-items: center;
+   justify-content: start;
+   padding-left: 1px;
+
+  }
+
+  .textarea input{
+    width: 70%;
+    height: 4.5vh;
+    outline: none;
+    border-radius: 10px;
+    padding: 2px 5px 2px;
+    border: none;
+  }
+.users-box{
+    background-color: #90cec6;
+    color: #000;
+    width: 28%;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 3px;
+    cursor: pointer;
+}
+
+.userI{
+    width: 100%;
+    height:45px;
+    background-color: #ffffff;
+    margin-top:3px;
+    padding: 3px 5px;
+    border-radius: 12px;
+    font-family: "Playwrite DE Grund", cursive;
+    font-size: small;
+}
+
+.status{
+  background-color: #f6f5f584;
+  width: 90px;
+  height: 1.6vh;
+  margin: auto;
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+  font-size:13px;
+  border-radius: 12px;
+}
+
+.hider{
+  visibility: hidden;
+}
+
+.indicate_to_chat{
+  position: absolute;
+  right: 400px;
+  width: 550px;
+  font-size: x-large;
+  margin-top: 10px;
+  color: #000;
+
+}
+.name{
+  font-size: 10px;
+  font-style: italic;
+  font-weight: 400;
+  padding: 0px;
+}

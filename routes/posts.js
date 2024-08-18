@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const plm = require('passport-local-mongoose');
-
 mongoose.connect('mongodb://127.0.0.1/campusdairy');
 
 const userPosts = mongoose.Schema({
@@ -19,8 +18,7 @@ const userPosts = mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'user'
     }],
-    
-    createdAt: {
+     createdAt: {
         type: Date,
         default: Date.now // Automatically set the current date and time when a document is created
     },

@@ -6,6 +6,8 @@ const localStretagy = require('passport-local');
 // const { removeAllListeners } = require('nodemon');
 const postModule = require('./posts')
 const upload = require('./multer')
+const path = require('path')
+const chatModel = require('./chat')
 
 passport.use(new localStretagy(useModel.authenticate()));
 
@@ -14,19 +16,29 @@ router.get('/', function (req, res, next) {
   // console.log(req.flash("error"))
   res.render('index', { error: req.flash('error') });
 });
+
+
 router.get('/register', function (req, res, next) {
   res.render('register');
 });
+
+router.post('/userProfile',async function (req, res, next) {
+  const user = await useModel.findOne({userKaName:req.username}).populate('posts')
+  res.redirect('/userProfile')
+});
+
 
 router.get('/home', isloggedIn, async function (req, res, next) {
   const posts = await postModule.find().populate('user');
   res.render('home',{posts});
 });
 
+
 router.get('/search', isloggedIn,async function (req, res, next) {
   const posts = await postModule.find().populate('user');
   res.render('search', {posts});
 });
+
 
 router.get('/profile', isloggedIn, async function (req, res, next) {
   const user = await useModel.findOne({
@@ -42,9 +54,25 @@ router.get('/notification', isloggedIn, async function (req, res, next) {
 });
 
 
+router.get('/message',isloggedIn,async function (req, res, next) {
+  const user = await useModel.findOne({
+    username: req.session.passport.user
+  }).populate('posts');
+
+  const userall = await useModel.find({user:{ $nin:[req.session.passport.user] }});
+  res.render('message',{user,userall});
+});
+
+
 router.get('/username/:username', isloggedIn, async function (req, res, next) {
   const regex  = new RegExp(`^${req.params.username}`,'i');
-  const user = await useModel.find({username:regex})
+  const user = await useModel.find({username:regex}).populate('posts').exec();
+  const userP= user[0];
+  // console.log(user)
+  // console.log(userP)
+  router.get('/userProfile',async function (req, res, next) {
+    res.render('userProfile',{userP,user});
+  });
   res.json(user);
 });
 
@@ -97,15 +125,13 @@ router.post("/now-register", async function (req, res) {
     password: req.body.password,
     email: req.body.email,
   })
-
   useModel.register(userdata, req.body.password)
-    .then(function (registereduser) {
-      passport.authenticate("local")(req, res, function () {
-        res.redirect("/")
-      })
+  .then(function (registereduser) {
+    passport.authenticate("local")(req, res, function () {
+      res.redirect("/")
     })
+  })
 })
-
 
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/profile',
@@ -119,7 +145,6 @@ function isloggedIn(req, res, next) {
   }
   res.redirect("/")
 }
-
 router.get('/logout', function (req, res, next) {
   req.session.destroy((err) => {
     if (err) {
@@ -133,41 +158,25 @@ router.get('/logout', function (req, res, next) {
 
 
 
+router.post('/saveChat', async (req, res, next) => {
+  try {
+      const { sender_id, receiver_id, message } = req.body;
 
-// to create posts
+      if (!sender_id || !receiver_id || !message) {
+          return res.status(400).json({ success: false, msg: 'All fields are required' });
+      }
 
-// router.get('/allposts',async function(req,res,next){
+      const chat = new chatModel({
+          sender_id: sender_id,
+          receiver_id: receiver_id,
+          message: message
+      });
 
-//     res.send(user)
-// })
-
-// router.get('/usercreate',async function(req,res,next){
-// let createduser = await useModel({
-//   username:"Aitya",
-//   email:"aditya@123",
-// })
-// res.send(createduser);
-// });
-
-// router.get('/createpost', async function (req, res,next) {
-//   let createpost = await postModule({
-//     user: '65c8a50a93846a402543a630',
-//     text:"hello! everyone I'm sumit malviya",
-//   });
-
-//   let user = await useModel.findOne({_id : '65c8a50a93846a402543a630'});
-//   user.posts.push(createpost._id);
-//   await user.save();
-//   res.send('done')
-// })
-
-
-// router.post('/upload',upload.single('file'), (req,res) =>{
-//   if(!req.file) {
-//     return res.status(500).send('No files were uploaded.')
-//   }
-//   res.send('file uploaded successfully!');
-// })
-
+      await chat.save();
+      res.status(200).json({ success: true, msg: 'Chat Saved' });
+  } catch (error) {
+      res.status(400).json({ success: false, msg: error.message });
+  }
+});
 
 module.exports = router;

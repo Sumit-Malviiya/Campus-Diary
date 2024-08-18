@@ -8,12 +8,17 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const expressSession = require('express-session');
 const passport = require('passport');
+var cors = require('cors'); // Import the CORS package
 
 var app = express();
+
+// Use CORS middleware
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+app.use(cors());
 
 app.use(expressSession({
   secret: 'hello Campus ', // Change this to a secret key for session data encryption
@@ -51,5 +56,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+
+
 
 module.exports = app;

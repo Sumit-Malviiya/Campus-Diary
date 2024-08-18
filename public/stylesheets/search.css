@@ -80,21 +80,22 @@ body {
 }
 
 .sidebar {
-    width: 23.4vw;
+    width: 21.4vw;
     position: absolute;
     top: 56px;
     left: 4px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: auto;
+    justify-content: start;
+    align-items: start;
+    height: 80vh;
     position: fixed;
+    background-color: #fff;
+    border-radius: 12px;
 }
 
-.icon {
-    border: .6px solid #adadad;
-    width: 100%;
+.icon{
+    width: 95%;
     padding: 15px 0px 15px 0px;
     /* padding-left: 30px; */
     position: relative;
@@ -104,10 +105,14 @@ body {
     justify-content: start;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     background-color: #fff;
+    font-weight: 600;
     font-family: "Josefin Sans", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 600;
 }
+.icon:hover{
+    background-color: #dadddf;
+}
+
 
 .icon a i {
     font-size: 29px;
@@ -127,7 +132,8 @@ body {
 }
 
 #search {
-    border-right: 7px solid #355070;
+    border-left: 7px solid #355070;
+    background-color: #dadddf;
 }
 
 
@@ -212,4 +218,95 @@ body {
     width: 18.9vmin;
     height: 20vmin;
     object-fit: cover;
+}
+
+
+.posts {
+    margin-top: 8px;
+    background-color: #fff;
+    border: .7px solid rgb(195, 195, 195);
+    width: 75vmin;
+    border-radius: 7px;
+    padding: 0%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.post-creator {
+    display: flex;
+    padding: 10px;
+}
+
+.profile-icon img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+.create-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.creator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.creator :first-child {
+    padding-left: 12px;
+    font-size: 1rem;
+    font-family: "Baloo Da 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.creator :last-child {
+    padding-left: 12px;
+    font-size: .9rem;
+}
+
+.post-info {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    font-size: .8rem;
+    font-weight: 100;
+    color: #757575;
+    gap: 4px;
+    padding: 3px 0px 0px 12px;
+}
+
+.post-info i {
+    font-size: 1rem;
+}
+
+.post-item {
+    max-height: 80vmin;
+    object-fit: cover;
+}
+
+.post-item .caption {
+    padding: 5px 10px 5px 10px;
+    border-top: 1px solid #adadad;
+}
+
+.post-img,
+.post-img img {
+    max-height: 60vmin;
+    min-width: 75vmin;
+    object-fit: contain;
+    overflow: hidden;
+}
+
+.like-comment-share {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #fff;
+    max-height: 20px;
+    padding: 7px;
+    font-size: 1.2rem;
+    cursor: pointer;
 }
