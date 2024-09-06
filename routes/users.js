@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 const plm = require('passport-local-mongoose');
 
-mongoose.connect('mongodb://127.0.0.1/campusdairy');
+// mongoose.connect('mongodb://127.0.0.1/campusdairy');
+
+mongoose.connect('mongodb+srv://Sumit:KPiHx5ztfr34lnaj@sumitapp.wgfza6x.mongodb.net/?retryWrites=true&w=majority&appName=SumitApp');
+
 
 const userSchema = mongoose.Schema({
   username:{ type: String, required: true, unique: true },

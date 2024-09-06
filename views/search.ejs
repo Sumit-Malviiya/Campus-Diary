@@ -23,6 +23,7 @@
 
         <div class="sidebar">
             <div class="icon" id="home"><a href="/home"><i class="fa-solid fa-house"></i><span>Feed</span></a></div>
+            <div class="icon" id="Messanger"><a href="/message"><i class='fas fa-comment-dots'></i>Messanger</a></div>
             <div class="icon" id="search"><a href="/search"><i
                         class="fa-solid fa-magnifying-glass"></i><span>Search</span></a></div>
             <div class="icon" id="notification"><a href="/notification"><i
@@ -48,6 +49,7 @@
 
     <div class="viewPost posts">
         <div class="post">
+            <span class="on_off" style="font-size: 25px;cursor: pointer; position: relative;float: right; padding: 10px;">&#10006;</span>
             <div class="post-creator">
                 <div class="profile-icon">
                     <img src="/images/uploads/>" alt="">
@@ -55,7 +57,7 @@
                 <div class="create-info">
                     <div class="creator">
                         <h6>
-                            <%= posts.user.username %>
+                            <%= posts.username %>
                         </h6>
                         <a href="#">Follows</a>
                     </div>
@@ -74,12 +76,12 @@
                     </p>
                 </div>
                 <div class="post-img">
-                    <img src="/images/uploads/<%= posts.image %>" alt="">
+                    <img src="https://th.bing.com/th/id/OIP.rvSWtRd_oPRTwDoTCmkP5gHaE8?rs=1&pid=ImgDetMain" alt="">
                 </div>
                 <div class="like-comment-share">
                     <div class="like"><i class="fa-regular fa-thumbs-up"></i><span class="likeCount"
                             style="font-size: smaller;color: rgb(128, 128, 128);margin-left: 2px;">
-                            <%= posts.likes.length %>
+                            <%= posts.likes %>
                         </span></div>
                     <div class="comment"><i style='font-size:20px' class='far'>&#xf075;</i></div>
                     <div class="share"><i style='font-size:20px' class='fas'>&#xf14d;</i></div>
@@ -150,6 +152,14 @@
           });
         });
       });
+
+
+
+
+
+      document.querySelector('.on_off').addEventListener('click', ()=>{
+        document.querySelector('.viewPost').style.display='none'
+      })
     </script>
 </body>
 

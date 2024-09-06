@@ -310,3 +310,13 @@ body {
     font-size: 1.2rem;
     cursor: pointer;
 }
+
+
+.viewPost{
+    position: absolute;
+    z-index: 1;
+    top: 50px;
+    left: 31.3%;
+    /* display: none; */
+}
+
